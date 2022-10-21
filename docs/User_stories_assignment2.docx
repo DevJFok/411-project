@@ -3,7 +3,7 @@ As a logged-in user, I want to be able to save my recipes in the app. The user w
 As a logged-in user, I want to search for specific ingredients on multiple platforms at once. The user will access the web app and be able to select the ingredients filtered by the web app. When everything goes right, the top 3 rated ingredients would be displayed. When the top 3 rated ingredients are displayed, the user would have the option to choose which ingredient they would like to order. If something goes wrong, then less than 3 rated ingredients would be displayed. A message would appear indicating tha that ingredient is out of stock or not available in that platform.
 
 As a logged-in user, I want to be able to be directed to the specific website with ingredients already in cart, or be connected to direct ingredient links. Once clicking on the directed cart link, it will take users to the cart into their accounts. The payments will be processed on the third party website chosen by the user.
-https://webservices.amazon.com/paapi5/documentation/add-to-cart-form.html
+ - https://webservices.amazon.com/paapi5/documentation/add-to-cart-form.html
 
 As a logged-in user, I want to be able to filter which platforms the web app searches for ingredients on. Users will be able to connect their accounts directly through the web app. This will be implemented with SSO in the backend. When everything goes right, the user’s account would be properly linked such that ingredients added in the web app will be automatically added to the cart of a platform of their choice. 
 
