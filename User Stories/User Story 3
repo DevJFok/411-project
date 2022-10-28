@@ -1,0 +1,2 @@
+As a logged-in user, I want to be able to be directed to the specific website with ingredients already in cart, or be connected to direct ingredient links. Once clicking on the directed cart link, it will take users to the cart into their accounts. The payments will be processed on the third party website chosen by the user.
+https://webservices.amazon.com/paapi5/documentation/add-to-cart-form.html
