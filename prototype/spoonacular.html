@@ -26,11 +26,11 @@
             The ChefCart is designed to make following recipes easy. Simply import the recipe website you wish to follow,
             and ChefCart will buy the ingredients for you!
         </p>
-        <input id="search"><button onclick="getrecipe(document.getElementById('search').value)">Search</button>
+        <input id="recipe_url"><button onclick="getIngredients()">Recipe URL</button>
         <div id="output"></div>
         <a href="" id="sourceLInk"></a>
         
-        <button id="recipe_search" onclick="getIngredients()">Send an HTTP GET request to a page and get the result back</button>
+        <!-- <button id="recipe_search" onclick="getIngredients()">Get Ingredients</button> -->
 
         <p id="output_ingredients"></p>
         
@@ -39,13 +39,25 @@
 
     <!-- JS Scripts -->
     <script>
-        const ingredients_list =[];
-        function getIngredients(){
-            $.get("https://api.spoonacular.com/recipes/716429/information?apiKey=6b0d206bfbc741b988444b1317773317&includeNutrition=true", 
-            function(data, status){
-                for (let i = 0; i < JSON.stringify(data['extendedIngredients']).length; i++){
+        var ingredients_list =[];
+        var api_key = "553ccd987dc6462084893dfb3c835fb7";
+        var recipe_id = "";
+        function search_recipe(){
+            var input = document.getElementById("recipe_url").value;
+            input = input.split('/')[4]
+            input = input.split('-')
+            input_length = input.length - 1
+            input = input[input_length]
+            alert(input);
+            recipe_id = input;
 
-                    // ingredients_list.push(JSON.stringify(data['extendedIngredients'][i]['name']).replace(/\"/g, ""));
+        }
+        function getIngredients(){
+            search_recipe();
+            $.get("https://api.spoonacular.com/recipes/" + recipe_id + "/information?apiKey=" + api_key+ "&includeNutrition=true", 
+            function(data, status){
+                reset_ingredients_list();
+                for (let i = 0; i < JSON.stringify(data['extendedIngredients']).length; i++){
 
                     if (JSON.stringify(data['extendedIngredients'][i]['name']) != ""){
                         ingredients_list.push(JSON.stringify(data['extendedIngredients'][i]['name']).replace(/\"/g, ""));
@@ -58,5 +70,6 @@
         function reset_ingredients_list(){
             ingredients_list = [];
         }
+        
     </script>
 </html>

@@ -1,7 +1,7 @@
 import requests
 from requests.structures import CaseInsensitiveDict
 
-api_key = '6b0d206bfbc741b988444b1317773317'
+api_key = '553ccd987dc6462084893dfb3c835fb7'
 
 def return_ingredients(resp):
 
@@ -26,8 +26,14 @@ def search_recipe(url):
     # print(resp.json())
     return (return_ingredients(resp))
 
+def parse_url(url):
+    id = url.split('/')[4].split('-')[-1]
+
+    return id
+
+
 # print(resp.status_code)
 
-ingredients_list = search_recipe("https://spoonacular.com/recipes/pasta-with-garlic-scallions-cauliflower-breadcrumbs-716429")
+ingredients_list = parse_url("https://spoonacular.com/recipes/pasta-with-garlic-scallions-cauliflower-breadcrumbs-716429")
 print(ingredients_list)
 
