@@ -22,22 +22,23 @@
         <a href="#Saved Recipes" onclick="w3_close()" class="w3-bar-item w3-button">saved recipes</a>
       </nav>
 
-      <div class="topnav">
-        <a class="active" href="/index.html">Home</a>
-        <a href="/spoonacular.html">Search Recipe</a>
-        <a href="#contact">Contact</a>
-        <input type="text" placeholder="Search..">
-      </div>
 
-    <h1>
-        ChefCart
-    </h1>
+      <div class="w3-top">
+        <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+          <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+          <div class="w3-right w3-padding-16">LogIn</div>
+          <div class="w3-center w3-padding-16">ChefCart</div>
+        </div>
+      </div>
+    
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
     <p>
         The ChefCart is designed to make following recipes easy. Simply import the recipe website you wish to follow,
         and ChefCart will buy the ingredients for you!
     </p>
-    
-    <hs class = "alert alert-primary">Sign with Google</hs>
+    <div class="topnav">
+        <input type="text" placeholder="Search..">
+      </div>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
     <div class = "data">
@@ -49,6 +50,22 @@
         <p id = "email"></p>
         <button type = "button" class = "btn btn-danger" onclick = "signOut();">Sign Out</button>
         </div>
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+
+        .topnav input[type=text] {
+        float: right;
+        padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    border: none;
+    font-size: 17px;
+        }
+
+</style>
+</head>
+</div>
 
     <script src="index.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
