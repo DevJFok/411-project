@@ -18,5 +18,6 @@ const selectors = {
   await page.waitForSelector(selectors.product);
   const product = await page.$$(selectors.product);
   await product[3].click();
+  await page.waitForSelector('body')
   console.log(page.url());
 })()
