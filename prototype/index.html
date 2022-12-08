@@ -36,8 +36,12 @@
         The ChefCart is designed to make following recipes easy. Simply import the recipe website you wish to follow,
         and ChefCart will buy the ingredients for you!
     </p>
+    <input id="search"><button onclick="getrecipe(document.getElementById('search').value)">Search</button>
+    <input id="recipe_url"><button onclick="getIngredients()">Recipe URL</button>
+    <!-- <button id="recipe_search" onclick="getIngredients()">Get Ingredients</button> -->
     <div class="topnav">
-        <input type="text" placeholder="Search..">
+        <a class="active" href="/index.html">Home</a>
+        <a href="/spoonacular.html">Search Recipe</a>
       </div>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
