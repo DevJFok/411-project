@@ -1,6 +1,7 @@
 var ingredients_list =[];
 var api_key = "be4ca83f4d75409787cc48362089f71a";
 var recipe_id = "";
+const host = "http://localhost:3000/";
 
 function search_recipe(){
     var input = document.getElementById("recipe_url").value;
@@ -53,9 +54,10 @@ auth2.signOut().then(function () {
 
 function getUrl(ingredients_list){
   document.getElementById('link').innerHTML = "Please wait...";
+  console.log(ingredients_list);
   $.ajax({
     type:"POST",
-    url: "http://localhost:8088/getUrl",
+    url: host+"getUrl",
     contentType: "application/json",        
     data: JSON.stringify({ "items": ingredients_list}), 
     timeout: 40000, 
@@ -70,8 +72,8 @@ function getUrl(ingredients_list){
     error: function() {
       console.log('Request failed. Retrying...');
       //alert('error');
-      setTimeout(() => console.log(), 3000);
-      post(ingredients_list);
+      setTimeout(() => console.log(), 5000);
+      getUrl(ingredients_list);
     }
     
 })};

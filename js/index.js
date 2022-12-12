@@ -19,7 +19,6 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -46,7 +45,7 @@ app.post('/getUrl', (req, res) => {
   };
   (async function () {
     try {
-      const browser = await puppeteer.launch({headless: false});
+      const browser = await puppeteer.launch({headless: true});
       const page = await browser.newPage();
       await page.goto(domain, {
         timeout: 10000,
