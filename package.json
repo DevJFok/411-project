@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "The web app allows the user to input a recipe and automatically order the ingredients they need through amazon, wholefood or gopuff.",
   "main": "index.js",
+  "type": "module",
   "directories": {
     "doc": "docs"
   },
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/DevJFok/411-project#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "firebase": "^9.15.0",
     "puppeteer": "^19.4.0",
     "python-shell": "^3.0.1"
   }

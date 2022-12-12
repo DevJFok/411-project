@@ -1,5 +1,14 @@
-const express = require('express');
+//const express = require('express');
+import express from "express";
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import puppeteer from 'puppeteer';
+import {PythonShell} from 'python-shell';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
@@ -10,23 +19,25 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-app.listen(8088, () => {
+app.listen(3000, () => {
   console.log('start server');
 })
 
+var HtmlPath = path.resolve(__dirname, '..');
+app.use(express.static(HtmlPath));
 app.get('/', (req, res) => {
-  res.send('<div>hello world</div>');
+  res.redirect('/index.html');
+  //res.sendFile("index.html");
 })
- 
+
 app.post('/getUrl', (req, res) => {
   const { items } = req.body;
-  const puppeteer = require('puppeteer');
   const domain = "https://www.amazon.com";
   var productList = [];
-  const {PythonShell} = require('python-shell')
   const selectors = {
     search : '#nav-search-submit-button',
     searchbox : '#twotabsearchtextbox',
@@ -92,10 +103,10 @@ app.post('/getUrl', (req, res) => {
       }
       await browser.close();
     } catch (error) {
-      // display errors
       console.log(error);
       res.sendStatus(500);
       await browser.close();
     }
   })();
 })
+
