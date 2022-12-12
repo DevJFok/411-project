@@ -90,8 +90,8 @@
 <!-- JS Scripts -->
 <script>
     var ingredients_list =[];
-    var api_key = "2286de97d678461f978e94c67082597d";
-    var recipe_id = "";
+    var api_key = "553ccd987dc6462084893dfb3c835fb7";
+    var recipe_id = "1697687";
     function search_recipe(){
         var input = document.getElementById("recipe_url").value;
         input = input.split('/')[4];
@@ -100,23 +100,14 @@
         input = input[input_length];
         recipe_id = input;
 
+        document.getElementById('output_title').innerHTML = recipe_id
+
     }
     function getIngredients(){
-        // search_recipe();
-        // $.get("https://api.spoonacular.com/recipes/" + recipe_id + "/information?apiKey=" + api_key+ "&includeNutrition=true", 
-        // function(data, status){
-        //     reset_ingredients_list();
-        //     for (let i = 0; i < JSON.stringify(data['extendedIngredients']).length; i++){
+        search_recipe();
 
-        //         if (JSON.stringify(data['extendedIngredients'][i]['name']) != ""){
-        //             ingredients_list.push(JSON.stringify(data['extendedIngredients'][i]['name']).replace(/\"/g, ""));
-        //             document.getElementById('output_ingredients').innerHTML = ingredients_list;
 
-        //         }
-        //     }
-        // });
-
-        $.get("https://api.spoonacular.com/recipes/1697687/information?apiKey=" + api_key+ "&includeNutrition=true", 
+        $.get("https://api.spoonacular.com/recipes/" + recipe_id + "/information?apiKey=" + api_key+ "&includeNutrition=true", 
         function(data, status){
             reset_ingredients_list();
 
@@ -130,7 +121,11 @@
 
                 }
             }
+
+            
         });
+
+        window.open("https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAIDRD3DCNEGB4OYAA&AssociateTag=kbscart-20&ASIN.1=B09MZRJGR7&Quantity.1=1", "_blank");
     }
     function reset_ingredients_list(){
         ingredients_list = [];
