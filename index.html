@@ -26,7 +26,6 @@
 
       <div class="w3-top">
         <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
-          <!--<div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>-->
           <div class="w3-center w3-padding-16">ChefCart</div>
         </div>
       </div>
@@ -36,24 +35,28 @@
         The ChefCart is designed to make following recipes easy. Simply import the recipe website you wish to follow,
         and ChefCart will buy the ingredients for you!
     </p>
-    <!-- <input id="search"><button onclick="getrecipe(document.getElementById('search').value)">Search</button> -->
-    <!-- <input id="recipe_url"><button onclick="getIngredients()">Recipe URL</button> -->
-
+    
     <input id="recipe_url"><button onclick="getIngredients()">Recipe URL</button>
         <div id="output"></div>
         <a href="" id="sourceLInk"></a>
     <p id="output_title"></p>
     <p id="output_ingredients"></p>
     <p id="link"></p>
+    <p id="save"></p>
+    <p id = "name"></p>
+    
 
-    <!--
-    <div>
-        <button class="google" id='login'>Log in with Google+</button>
-      </div> -->
+    <button class="google" id='login'>Log in with Google</button>
+    <!--<button id = "signOut">Sign Out</button>-->
+    
+    
 
+  
+  <!--
     <div class="topnav">
         <!--<a class="active" href="/index.html">Home</a>-->
-        <!--<a href="/spoonacular.html">Search Recipe</a>-->
+        <!--<a href="/spoonacular.html">Search Recipe</a>
+          
       </div>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <div class = "data">
@@ -75,9 +78,9 @@
     margin-right: 16px;
     border: none;
     font-size: 17px;
-        }
+        } 
 
-</style>
+</style>-->
 </head>
 </div>
 
@@ -89,6 +92,77 @@
      <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
      <script src="js/spoonacular.js"></script>
      <script src="js/firebase.js"></script>
+     <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+      import { getAuth ,GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+      import {collection, addDoc, getFirestore} from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js"
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+      // your config code
+        apiKey: "AIzaSyAXeVwtf-rTMD4Yv9t1rSnSYRnoQvW37_s",
+        authDomain: "project-3b34b.firebaseapp.com",
+        projectId: "project-3b34b",
+        storageBucket: "project-3b34b.appspot.com",
+        messagingSenderId: "953954759325",
+        appId: "1:953954759325:web:43cae51baa36e23175da74",
+        measurementId: "G-0E67JE6QE3",
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider(app);
+      const database = getFirestore(app);
+      const collectionRef = collection(database,"users");
+      login.addEventListener('click',(e) => {
+        // sign in with popup tab
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+              addDoc(collectionRef,{
+                name: user.displayName,
+                email: user.email })
+              .then(() =>{
+              alert("Data Added");
+              })
+              .catch( (err)=>{ alert(err.message);});
+            // ...
+          }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+        
+            alert(errorMessage);
+          });
+        });
+        
+          signOut.addEventListener('click',() => {
+        
+          signOut(auth).then(() => {
+            // Sign-out successful.
+            alert('Sign-out successful');
+          }).catch((error) => {
+            // An error happened.
+            alert(error);
+          });
+        
+          });
+      
+    
+        </script>
      
 </body>
 </html>

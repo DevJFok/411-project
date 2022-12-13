@@ -41,6 +41,7 @@ app.post('/getUrl', (req, res) => {
     search : '#nav-search-submit-button',
     searchbox : '#twotabsearchtextbox',
     product : '[class = "a-size-base-plus a-color-base a-text-normal"]',
+    a : "#nav-search-dropdown-card",
     searchdropdown : 'select[aria-describedby="searchDropdownDescription"]'
   };
   (async function () {
@@ -53,7 +54,7 @@ app.post('/getUrl', (req, res) => {
       });
       
       try {
-        await page.waitForSelector(selectors.searchdropdown, {timeout: 3000});
+        await page.waitForSelector(selectors.searchdropdown, {timeout: 10000});
       } catch (e) {
         await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
       }
