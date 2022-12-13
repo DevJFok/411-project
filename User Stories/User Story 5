@@ -1,1 +1,0 @@
-As a logged-in user, I want to be able to track past recipes in the app. The user will be able to view a history of recipes previously imported into the web app. When everything goes right, the web app will display the history of past recipes in a list format. When everything goes wrong, the previously imported recipes would not be displayed.
