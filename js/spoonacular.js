@@ -1,5 +1,7 @@
 var ingredients_list =[];
-var api_key = "be4ca83f4d75409787cc48362089f71a";
+// add api key here
+// Find api here: https://spoonacular.com/food-api/console#Profile 
+var api_key = " ";
 var recipe_id = "";
 const host = "http://localhost:3000/";
 
