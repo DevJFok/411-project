@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="845263629251-d96jdemhk478lcgnnio16hg7u7htqsp4.apps.googleusercontent.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Recipe App</title>
+</head>
+
+<body>
+    
+
+    <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()"
+        class="w3-bar-item w3-button">Close Menu</a>
+        <a href="#Cart" onclick="w3_close()" class="w3-bar-item w3-button">cart</a>
+        <a href="#Saved Recipes" onclick="w3_close()" class="w3-bar-item w3-button">saved recipes</a>
+      </nav>
+
+
+      <div class="w3-top">
+        <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+          <div class="w3-center w3-padding-16">ChefCart</div>
+        </div>
+      </div>
+    
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+    <p>
+        The ChefCart is designed to make following recipes easy. Simply import the recipe website you wish to follow,
+        and ChefCart will buy the ingredients for you!
+    </p>
+    
+    <input id="recipe_url"><button onclick="getIngredients()">Recipe URL</button>
+        <div id="output"></div>
+        <a href="" id="sourceLInk"></a>
+    <p id="output_title"></p>
+    <p id="output_ingredients"></p>
+    <p id="link"></p>
+    <p id="save"></p>
+    <p id = "name"></p>
+    
+
+    <button class="google" id='login'>Log in with Google</button>
+    <!--<button id = "signOut">Sign Out</button>-->
+    
+    
+
+  
+  <!--
+    <div class="topnav">
+        <!--<a class="active" href="/index.html">Home</a>-->
+        <!--<a href="/spoonacular.html">Search Recipe</a>
+          
+      </div>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class = "data">
+        <p>Name</p>
+        <p id = "alert alert-succes"></p>
+        <p>Profile Picture</p>
+        <img id="image" class="rounded-circle" width ="100" height = "100" />
+        <p>Email</p>
+        <p id = "email"></p>
+        <button type = "button" class = "btn btn-danger" onclick = "signOut();">Sign Out</button>
+        </div>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+
+        .topnav input[type=text] {
+        float: right;
+        padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    border: none;
+    font-size: 17px;
+        } 
+
+</style>-->
+</head>
+</div>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+     <script src="js/spoonacular.js"></script>
+     <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+      import { getAuth ,GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+      import {collection, addDoc, getFirestore} from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js"
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+      // your config code
+        apiKey: "AIzaSyAXeVwtf-rTMD4Yv9t1rSnSYRnoQvW37_s",
+        authDomain: "project-3b34b.firebaseapp.com",
+        projectId: "project-3b34b",
+        storageBucket: "project-3b34b.appspot.com",
+        messagingSenderId: "953954759325",
+        appId: "1:953954759325:web:43cae51baa36e23175da74",
+        measurementId: "G-0E67JE6QE3",
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider(app);
+      const database = getFirestore(app);
+      const collectionRef = collection(database,"users");
+      login.addEventListener('click',(e) => {
+        // sign in with popup tab
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+              addDoc(collectionRef,{
+                name: user.displayName,
+                email: user.email })
+              .then(() =>{
+              alert("Data Added");
+              })
+              .catch( (err)=>{ alert(err.message);});
+            // ...
+          }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+        
+            alert(errorMessage);
+          });
+        });
+        
+          signOut.addEventListener('click',() => {
+        
+          signOut(auth).then(() => {
+            // Sign-out successful.
+            alert('Sign-out successful');
+          }).catch((error) => {
+            // An error happened.
+            alert(error);
+          });
+        
+          });
+      
+    
+        </script>
+     
+</body>
+</html>
